@@ -16,7 +16,7 @@ LIMITE_SAQUES = 3   # Quantidade limite de saques por sessão.
 """
 TODO:
 [ ] Separar todas as operações em funções.
-    [ ] Depositar
+    [x] Depositar
     [ ] Sacar
     [ ] Extrato
 
@@ -44,7 +44,7 @@ TODO:
             Entrada: saldo, valor, extrato, limite, numero_saques, limite_saques.
             Saída: saldo, extrato.
 
-    [ ] Depósito: receber argumento apenas por posição.
+    [x] Depósito: receber argumento apenas por posição.
             Entrada: saldo, valor, extrato
             Saída: saldo, extrato.
 
@@ -54,24 +54,28 @@ TODO:
 
 [ ] Informar ao usuário o valor limite do saque quando o limite for excedido.
 [ ] Quando o limite de operações de saque for excedido, negar a operação sem que o usuário tenha que inserir um valor de saque primeiro.
+"""
 
+# Argumentos das funções por somente posição, posição ou nome e somente nome:
+# def nome_funcao(posicao1, posicao2, /, posicao_ou_nome, *, nome1, nome2):
 
-""" 
+def depositar(saldo, valor, extrato, /):
+    if valor > 0:
+        saldo += valor
+        extrato += f"Depósito: R$ {valor:.2f}\n"
+    else:
+        print("Operação falhou! O valor informado é inválido.")
+    
+    return saldo, extrato
+
 
 while True:
-
     opcao = input(menu)
 
     if opcao == "d":
         valor = float(input("Informe o valor do depósito: "))
-
-        if valor > 0:
-            saldo += valor
-            extrato += f"Depósito: R$ {valor:.2f}\n"
-
-        else:
-            print("Operação falhou! O valor informado é inválido.")
-
+        saldo, extrato = depositar(saldo, valor, extrato)
+        
     elif opcao == "s":
         valor = float(input("Informe o valor do saque: "))
 
